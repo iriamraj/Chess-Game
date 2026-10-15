@@ -16,17 +16,58 @@ interface Piece {
   id: number;
   name: string;
   color: string;
+  isFirstMove?: boolean;
 }
 
 export default function App() {
-  const WHITE_PAWN_1: Piece = { id: 1, name: "pawn", color: "white" };
-  const WHITE_PAWN_2: Piece = { id: 2, name: "pawn", color: "white" };
-  const WHITE_PAWN_3: Piece = { id: 3, name: "pawn", color: "white" };
-  const WHITE_PAWN_4: Piece = { id: 4, name: "pawn", color: "white" };
-  const WHITE_PAWN_5: Piece = { id: 5, name: "pawn", color: "white" };
-  const WHITE_PAWN_6: Piece = { id: 6, name: "pawn", color: "white" };
-  const WHITE_PAWN_7: Piece = { id: 7, name: "pawn", color: "white" };
-  const WHITE_PAWN_8: Piece = { id: 8, name: "pawn", color: "white" };
+  const WHITE_PAWN_1: Piece = {
+    id: 1,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_2: Piece = {
+    id: 2,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_3: Piece = {
+    id: 3,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_4: Piece = {
+    id: 4,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_5: Piece = {
+    id: 5,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_6: Piece = {
+    id: 6,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_7: Piece = {
+    id: 7,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
+  const WHITE_PAWN_8: Piece = {
+    id: 8,
+    name: "pawn",
+    color: "white",
+    isFirstMove: true,
+  };
   const WHITE_ROOK_1: Piece = { id: 9, name: "rook", color: "white" };
   const WHITE_ROOK_2: Piece = { id: 10, name: "rook", color: "white" };
   const WHITE_KNIGHT_1: Piece = { id: 11, name: "knight", color: "white" };
@@ -48,14 +89,54 @@ export default function App() {
   const WHITE_QUEEN: Piece = { id: 15, name: "queen", color: "white" };
   const WHITE_KING: Piece = { id: 16, name: "king", color: "white" };
 
-  const BLACK_PAWN_1: Piece = { id: 17, name: "pawn", color: "black" };
-  const BLACK_PAWN_2: Piece = { id: 18, name: "pawn", color: "black" };
-  const BLACK_PAWN_3: Piece = { id: 19, name: "pawn", color: "black" };
-  const BLACK_PAWN_4: Piece = { id: 20, name: "pawn", color: "black" };
-  const BLACK_PAWN_5: Piece = { id: 21, name: "pawn", color: "black" };
-  const BLACK_PAWN_6: Piece = { id: 22, name: "pawn", color: "black" };
-  const BLACK_PAWN_7: Piece = { id: 23, name: "pawn", color: "black" };
-  const BLACK_PAWN_8: Piece = { id: 24, name: "pawn", color: "black" };
+  const BLACK_PAWN_1: Piece = {
+    id: 17,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_2: Piece = {
+    id: 18,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_3: Piece = {
+    id: 19,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_4: Piece = {
+    id: 20,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_5: Piece = {
+    id: 21,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_6: Piece = {
+    id: 22,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_7: Piece = {
+    id: 23,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
+  const BLACK_PAWN_8: Piece = {
+    id: 24,
+    name: "pawn",
+    color: "black",
+    isFirstMove: true,
+  };
 
   const BLACK_ROOK_1: Piece = { id: 25, name: "rook", color: "black" };
   const BLACK_ROOK_2: Piece = { id: 26, name: "rook", color: "black" };
@@ -117,7 +198,6 @@ export default function App() {
   const [currentMove, setCurrentMove] = useState<string>(
     Math.random() < 0.5 ? "white" : "black",
   );
-  console.log(currentMove);
 
   const selectDefaultObj = {
     isSelected: false,
@@ -146,10 +226,9 @@ export default function App() {
     const isEnemy = detectEnemy(rowIDX, colIDX);
 
     if (selectPieces.isSelected) {
-      // debugger;
       if (isEmpty) {
-        if (true) {
-          // can move up to that position
+        const canMove = canMovePosition(selectPieces, rowIDX, colIDX);
+        if (canMove) {
           setMovePosition((prev: piecesMove) => ({
             ...prev,
             canMove: true,
@@ -159,8 +238,8 @@ export default function App() {
         }
       } else {
         if (isEnemy) {
-          if (true) {
-            //can cut enemy
+          const canMove = canMovePosition(selectPieces, rowIDX, colIDX);
+          if (canMove) {
             setMovePosition((prev: piecesMove) => ({
               ...prev,
               canMove: true,
@@ -191,9 +270,127 @@ export default function App() {
     }
   }
 
+  function canMovePosition(
+    selectPieces: piecesSelect,
+    rowIDX: number,
+    colIDX: number,
+  ) {
+    const pieceType = checkPieceType(selectPieces.xAxis, selectPieces.yAxis);
+
+    switch (pieceType) {
+      case "pawn":
+        const pawnMove = calculatePawn(selectPieces.xAxis, selectPieces.yAxis);
+        if (
+          pawnMove?.[0]?.includes(rowIDX) &&
+          pawnMove?.[1]?.includes(colIDX)
+        ) {
+          return true;
+        }
+        break;
+      default:
+        break;
+    }
+
+    // const selRow = selectPieces.xAxis;
+    // const selCol = selectPieces.yAxis;
+    // return pawnMove(selRow, selCol, moveRow, moveCol);
+
+    // if (selRow !== null && selCol !== null) {
+    //   if (board[selRow][selCol]?.name === "pawn") {
+    //     if (!detectEmpty(moveRow, moveCol)) return;
+
+    //     if (board[selRow][selCol]?.isFirstMove) {
+    //       if (board[selRow][selCol].id <= 8) {
+    //         const isEmpty = detectEmpty(moveRow, moveCol);
+    //         const isEnemy = detectEnemy(moveRow, moveCol);
+    //         if (
+    //           selRow + 1 === moveRow &&
+    //           !isEmpty &&
+    //           isEnemy &&
+    //           (selCol - 1 === moveCol || selCol + 1 === moveCol)
+    //         ) {
+    //           return true;
+    //         }
+
+    //         return (
+    //           (selRow + 1 === moveRow && selCol === moveCol) ||
+    //           (selRow + 2 === moveRow && selCol === moveCol)
+    //         );
+    //       } else {
+    //         return (
+    //           (selRow - 1 === moveRow && selCol === moveCol) ||
+    //           (selRow - 2 === moveRow && selCol === moveCol)
+    //         );
+    //       }
+    //     } else {
+    //       if (board[selRow][selCol].id <= 8) {
+    //         return selRow + 1 === moveRow && selCol === moveCol;
+    //       } else {
+    //         return selRow - 1 === moveRow && selCol === moveCol;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+
+  function checkPieceType(rowIDX: number | null, colIDX: number | null) {
+    if (rowIDX && colIDX) return board[rowIDX][colIDX]?.name;
+  }
+
+  function calculatePawn(
+    xAxis: number | null,
+    yAxis: number | null,
+  ): number[][] | undefined {
+    if (xAxis && yAxis) {
+      const pawn = board[xAxis][yAxis];
+      let pawnCanMoveX = new Set<number>();
+      let pawnCanMoveY = new Set<number>();
+
+      if (pawn?.id && pawn?.id <= 8) {
+        if (pawn.isFirstMove) {
+          pawnCanMoveX.add(xAxis + 1).add(xAxis + 2);
+          pawnCanMoveY.add(yAxis);
+        } else {
+          pawnCanMoveX.add(xAxis + 1);
+          pawnCanMoveY.add(yAxis);
+        }
+        const hasEnemyLeft = detectEnemy(xAxis + 1, yAxis - 1);
+        const hasEnemyRight = detectEnemy(xAxis + 1, yAxis + 1);
+        if (hasEnemyLeft) {
+          pawnCanMoveX.add(xAxis + 1);
+          pawnCanMoveY.add(yAxis - 1);
+        } else if (hasEnemyRight) {
+          pawnCanMoveX.add(xAxis + 1);
+          pawnCanMoveY.add(yAxis + 1);
+        }
+      } else {
+        if (pawn?.isFirstMove) {
+          pawnCanMoveX.add(xAxis - 1).add(xAxis - 2);
+          pawnCanMoveY.add(yAxis);
+        } else {
+          pawnCanMoveX.add(xAxis - 1);
+          pawnCanMoveY.add(yAxis);
+        }
+
+        const hasEnemyLeft = detectEnemy(xAxis - 1, yAxis - 1);
+        const hasEnemyRight = detectEnemy(xAxis - 1, yAxis + 1);
+
+        if (hasEnemyLeft) {
+          pawnCanMoveX.add(xAxis - 1);
+          pawnCanMoveY.add(yAxis - 1);
+        } else if (hasEnemyRight) {
+          pawnCanMoveX.add(xAxis - 1);
+          pawnCanMoveY.add(yAxis + 1);
+        }
+      }
+      return [Array.from(pawnCanMoveX), Array.from(pawnCanMoveY)];
+    }
+  }
+
   function detectEnemy(xAxis: number | null, yAxis: number | null) {
     if (xAxis !== null && yAxis !== null) {
-      return board[xAxis][yAxis]?.color !== currentMove;
+      const piece = board[xAxis][yAxis];
+      if (piece?.color) return piece.color !== currentMove;
     }
   }
 
@@ -224,7 +421,6 @@ export default function App() {
       if (selectPieces.isSelected && movePosition.canMove) {
         virBoard[moveXAxis][moveYAxis] = virBoard[selectXAxis][selectYAxis];
         virBoard[selectXAxis][selectYAxis] = null;
-        console.log("can move");
       } else {
         removeSelect();
       }
