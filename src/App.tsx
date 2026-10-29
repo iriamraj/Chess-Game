@@ -6,6 +6,7 @@ import { detectEmpty } from "./components/commonFunctions/detectEmpty";
 import { removeSelect } from "./components/commonFunctions/removeSelect";
 import { checkPieceType } from "./components/commonFunctions/checkPieceType";
 import { initialBoard } from "./components/board";
+import { calculateRook } from "./components/calculateMove/rook";
 
 export const selectDefaultObj = {
   isSelected: false,
@@ -104,7 +105,19 @@ export default function App() {
         const col = pawnMove?.[1];
         if (row?.includes(rowIDX) && col?.includes(colIDX)) return true;
         break;
+      case "rook":
+        const rookMove = calculateRook(
+          board,
+          currentMove,
+          selectPieces.xAxis,
+          selectPieces.yAxis,
+        );
+        const rookRow = rookMove?.[0];
+        const rookCol = rookMove?.[1];
+        if (rookRow?.includes(rowIDX) && rookCol?.includes(colIDX)) return true;
+        break;
       default:
+        return false;
         break;
     }
   }
