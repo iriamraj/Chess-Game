@@ -7,7 +7,6 @@ export function calculatePawn(
   xAxis: number | null,
   yAxis: number | null,
 ): number[][] | undefined {
-  
   if (xAxis !== null && yAxis !== null) {
     const pawn = board[xAxis][yAxis];
     let pawnCanMoveX = new Set<number>();
@@ -37,7 +36,8 @@ export function calculatePawn(
       if (hasEnemyLeft) {
         pawnCanMoveX.add(xAxis + 1);
         pawnCanMoveY.add(yAxis - 1);
-      } else if (hasEnemyRight) {
+      }
+      if (hasEnemyRight) {
         pawnCanMoveX.add(xAxis + 1);
         pawnCanMoveY.add(yAxis + 1);
       }
@@ -67,7 +67,8 @@ export function calculatePawn(
       if (hasEnemyLeft) {
         pawnCanMoveX.add(xAxis - 1);
         pawnCanMoveY.add(yAxis - 1);
-      } else if (hasEnemyRight) {
+      }
+      if (hasEnemyRight) {
         pawnCanMoveX.add(xAxis - 1);
         pawnCanMoveY.add(yAxis + 1);
       }

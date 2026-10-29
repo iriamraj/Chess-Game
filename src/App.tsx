@@ -26,7 +26,6 @@ export default function App() {
   );
   const [selectPieces, setSelectPieces] =
     useState<piecesSelect>(selectDefaultObj);
-
   const [movePosition, setMovePosition] = useState<piecesMove>(moveDefaultObj);
 
   function handelPieces(
@@ -72,19 +71,17 @@ export default function App() {
         }
       }
     } else {
-      if (!isEmpty) {
-        if (!isEnemy) {
-          setSelectPieces((prev: piecesSelect) => ({
-            ...prev,
-            isSelected: true,
-            xAxis: rowIDX,
-            yAxis: colIDX,
-          }));
-        }
+      if (!isEmpty && !isEnemy) {
+        setSelectPieces((prev: piecesSelect) => ({
+          ...prev,
+          isSelected: true,
+          xAxis: rowIDX,
+          yAxis: colIDX,
+        }));
       }
     }
   }
-  
+
   function canMovePosition(
     selectPieces: piecesSelect,
     rowIDX: number,
@@ -95,7 +92,6 @@ export default function App() {
       selectPieces.xAxis,
       selectPieces.yAxis,
     );
-
     switch (pieceType) {
       case "pawn":
         const pawnMove = calculatePawn(
@@ -106,9 +102,7 @@ export default function App() {
         );
         const row = pawnMove?.[0];
         const col = pawnMove?.[1];
-        if (row?.includes(rowIDX) && col?.includes(colIDX)) {
-          return true;
-        }
+        if (row?.includes(rowIDX) && col?.includes(colIDX)) return true;
         break;
       default:
         break;
