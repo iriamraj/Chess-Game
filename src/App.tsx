@@ -7,6 +7,7 @@ import { removeSelect } from "./components/commonFunctions/removeSelect";
 import { checkPieceType } from "./components/commonFunctions/checkPieceType";
 import { initialBoard } from "./components/board";
 import { calculateRook } from "./components/calculateMove/rook";
+import { calculateKnight } from "./components/calculateMove/knight";
 
 export const selectDefaultObj = {
   isSelected: false,
@@ -115,6 +116,18 @@ export default function App() {
         const rookRow = rookMove?.[0];
         const rookCol = rookMove?.[1];
         if (rookRow?.includes(rowIDX) && rookCol?.includes(colIDX)) return true;
+        break;
+      case "knight":
+        const knightMove = calculateKnight(
+          board,
+          currentMove,
+          selectPieces.xAxis,
+          selectPieces.yAxis,
+        );
+        const knightRow = knightMove?.[0];
+        const knightCol = knightMove?.[1];
+        if (knightRow?.includes(rowIDX) && knightCol?.includes(colIDX))
+          return true;
         break;
       default:
         return false;
