@@ -6,11 +6,14 @@ export function detectEnemy(
   xAxis: number | null,
   yAxis: number | null,
 ) {
-  if (xAxis !== null && yAxis !== null) {
-    const piece = board[xAxis][yAxis];
-    if (piece) {
-      return piece.color !== currentMove;
+  try {
+    if (xAxis !== null && yAxis !== null) {
+      const piece = board[xAxis][yAxis];
+      if (piece) {
+        return piece.color !== currentMove;
+      }
     }
+  } catch (error) {
+    return false;
   }
-  return false;
 }

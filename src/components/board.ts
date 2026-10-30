@@ -81,3 +81,5 @@ export const initialBoard = [
     BLACK_ROOK_2,
   ],
 ];
+
+

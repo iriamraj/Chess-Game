@@ -8,6 +8,7 @@ import { checkPieceType } from "./components/commonFunctions/checkPieceType";
 import { initialBoard } from "./components/board";
 import { calculateRook } from "./components/calculateMove/rook";
 import { calculateKnight } from "./components/calculateMove/knight";
+import { calculateBishop } from "./components/calculateMove/bishop";
 
 export const selectDefaultObj = {
   isSelected: false,
@@ -129,6 +130,21 @@ export default function App() {
         if (knightRow?.includes(rowIDX) && knightCol?.includes(colIDX))
           return true;
         break;
+
+      case "bishop":
+        const bishopMoves = calculateBishop(
+          board,
+          currentMove,
+          selectPieces.xAxis,
+          selectPieces.yAxis,
+        );
+        if (
+          bishopMoves?.some((move) => move.x === rowIDX && move.y === colIDX)
+        ) {
+          return true;
+        }
+        break;
+
       default:
         return false;
         break;
